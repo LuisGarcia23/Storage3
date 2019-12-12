@@ -47,7 +47,7 @@ key = results.rows.item(i).name;
 id = results.rows.item(i).id;
 
 //<!--Displaying all rows of the database in the table-->
-pair += "<tr><td><center>"+id+"</center></td><td><center>"+key+"</center></td><td><center>"+results.rows.item(i).nume+"</center></td><td><center>"+results.rows.item(i).carre+"</center></td><td><a class=\"update\" href=\"#myPopupDialog\" data-custom="+"'"+ id+ "'" +"data-rel=\"popup\" data-position-to=\"window\" data-transition=\"pop\"><center><i class='fa fa-pencil-square-o'></i></center></a></td><td><a id=\"delete\" data=\""+id+"\"><center><i class='fa fa-trash'></i></center></a></td></tr>";
+pair += "<tr><td><center>"+id+"</center></td><td><center>"+key+"</center></td><td><center>"+results.rows.item(i).nume+"</center></td><td><center>"+results.rows.item(i).carre+"</center></td><td><a class=\"update\" href=\"#myPopupDialog\" data-custom="+"'"+ id+ "'" +"data-rel=\"popup\" data-position-to=\"window\" data-transition=\"pop\"><center><i class='fa fas fa-edit'></i></center></a></td><td><a id=\"delete\" data=\""+id+"\"><center><i class='fa fa-trash'></i></center></a></td></tr>";
 }
 if (pair == "<tr><th>Name</th><th>No. Control</th><th>Carrera</th></tr>") {
 pair += "<tr><td><i>empty</i></td><td><i>empty</i></td></tr>";
@@ -66,7 +66,7 @@ function(tx, result) {
 show();
 },
 function(error){
- alert('Something went Wrong');
+ alert('Algo salió mal');
 });
 });
 });
@@ -80,17 +80,17 @@ var carr = $("#ucarrera").val();
 db.transaction(function(transaction) {
 var executeQuery = "";
 transaction.executeSql("UPDATE mydata SET name=?, nume=? , carre=? WHERE id=?", [name,num,carr, id],
-function(tx, result) {alert('Updated successfully');
+function(tx, result) {alert('Actualizado exitosamente');
 show();
 },
-function(error){alert('Something went Wrong');});
+function(error){alert('Algo salió mal');});
 });
 });
 $(document).on('click', '.update', function(){
 var id = $(this).attr('data-custom');
 $("#id").val(id);
 db.transaction(function(transaction) {
-transaction.executeSql('SELECT name,nume FROM mydata where id=?', [id], function (tx, results) {
+transaction.executeSql('SELECT name,nume,carre FROM mydata where id=?', [id], function (tx, results) {
 var name = results.rows.item(0).name;
 var num = results.rows.item(0).nume;
 var carr = results.rows.item(0).carre;
@@ -99,7 +99,7 @@ $("#unumero").val(num);
 $("#ucarrera").val(carr);
 },
 function(error){
-alert('Something went Wrong');
+alert('Algo salió mal');
 });
 });
 });
@@ -108,10 +108,10 @@ alert('Something went Wrong');
 $(document).on('click', '#clearall', function(){
 db.transaction(function(transaction) {
 transaction.executeSql("DELETE FROM mydata", [],
-function(tx, result) {alert('Delete successfully');
+function(tx, result) {alert('Eliminar con éxito');
 show();
 },
-function(error){alert('Something went Wrong');});
+function(error){alert('Algo salió mal');});
 });
 });
 }
